@@ -543,7 +543,7 @@ class PDFSimpleFont(PDFFont):
             encoding = LITERAL_STANDARD_ENCODING
         if isinstance(encoding, dict):
             name = literal_name(encoding.get('BaseEncoding', LITERAL_STANDARD_ENCODING))
-            diff = list_value(encoding.get('Differences', None))
+            diff = list_value(encoding.get('Differences', []))
             self.cid2unicode = EncodingDB.get_encoding(name, diff)
         else:
             self.cid2unicode = EncodingDB.get_encoding(literal_name(encoding))
@@ -620,7 +620,7 @@ class PDFType3Font(PDFSimpleFont):
             descriptor = {'Ascent': 0, 'Descent': 0,
                           'FontBBox': spec['FontBBox']}
         PDFSimpleFont.__init__(self, descriptor, widths, spec)
-        self.matrix = tuple(list_value(spec.get('FontMatrix')))
+        self.matrix = tuple(list_value(spec.get('FontMatrix', [])))
         (_, self.descent, _, self.ascent) = self.bbox
         (self.hscale, self.vscale) = apply_matrix_norm(self.matrix, (1, 1))
         return

@@ -423,7 +423,7 @@ class PDFStandardSecurityHandlerV4(PDFStandardSecurityHandler):
     def init_params(self):
         super(PDFStandardSecurityHandlerV4, self).init_params()
         self.length = 128
-        self.cf = dict_value(self.param.get('CF'))
+        self.cf = dict_value(self.param.get('CF', {}))
         self.stmf = literal_name(self.param['StmF'])
         self.strf = literal_name(self.param['StrF'])
         self.encrypt_metadata = bool(self.param.get('EncryptMetadata', True))
